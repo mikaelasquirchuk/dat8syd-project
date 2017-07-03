@@ -1,16 +1,16 @@
 digraph Tree {
 node [shape=box] ;
-0 [label="DaysEnroltoStartdate <= 24.2754\ngini = 0.2439\nsamples = 4495\nvalue = [639, 3856]"] ;
-1 [label="DaysEnroltoStartdate <= -156.5\ngini = 0.1458\nsamples = 2437\nvalue = [193, 2244]"] ;
+0 [label="DaysEnroltoStartdate <= 24.2754\ngini = 0.2893\nsamples = 26967\nvalue = [22236, 4731]"] ;
+1 [label="DaysInvoicetoEnrol <= 24.5\ngini = 0.1875\nsamples = 14302\nvalue = [12804, 1498]"] ;
 0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
-2 [label="gini = 0.4444\nsamples = 3\nvalue = [2, 1]"] ;
+2 [label="gini = 0.197\nsamples = 12954\nvalue = [11519, 1435]"] ;
 1 -> 2 ;
-3 [label="gini = 0.1446\nsamples = 2434\nvalue = [191, 2243]"] ;
+3 [label="gini = 0.0891\nsamples = 1348\nvalue = [1285, 63]"] ;
 1 -> 3 ;
-4 [label="DaysEnroltoStartdate <= 24.7754\ngini = 0.3395\nsamples = 2058\nvalue = [446, 1612]"] ;
+4 [label="DaysEnroltoStartdate <= 24.7754\ngini = 0.3802\nsamples = 12665\nvalue = [9432, 3233]"] ;
 0 -> 4 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
-5 [label="gini = 0.0\nsamples = 304\nvalue = [304, 0]"] ;
+5 [label="gini = 0.0\nsamples = 2293\nvalue = [0, 2293]"] ;
 4 -> 5 ;
-6 [label="gini = 0.1488\nsamples = 1754\nvalue = [142, 1612]"] ;
+6 [label="gini = 0.1648\nsamples = 10372\nvalue = [9432, 940]"] ;
 4 -> 6 ;
 }
