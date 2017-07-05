@@ -28,7 +28,6 @@
 					<img id="cog" src="assets/img/cog.png">
 					<h1>Cancellations at<br>
 						General Assembly</h1>
-					
 				</section>
 				<section>
 					<section>
@@ -38,6 +37,11 @@
 						<p>Not all  enrolments start their course ...</p>
 						<p>Around 17.82% of all students cancel before their first day.</p>
 						<img src="assets/img/bar-chart.png"/>
+					</section>
+					<section>
+						<p>It's not hard to see this is a classification problem. Enrolments either cancel or they become students.</p>
+						<p>In the data, this is marked with a "CanceledDate" from which I needed to extrapolate a "Cancelled" column, with a Boolean response.</p>
+						<p>This 'Cancelled' column was the <em>target variable</em>.</p>
 					</section>
 					<section>
 						<h2>END GOALS:</h2>
@@ -64,16 +68,18 @@
 					<section>
 						<h1>THE PROCESS</h1>
 						<div style="float:left">
-							<h6>EXPORTING THE DATA</h6>
-							<h6>EXTRAPOLATING THE DATA</h6>
-							<h6>COMPLETING THE DATA</h6>
-							<h6>VISUALISING THE DATA</h6>
+							<h6>STEP 1: EXPORT</h6>
+							<h6>STEP 2: EXTRAPOLATE</h6>
+							<h6>STEP 3: COMPLETE</h6>
+							<h6>STEP 4: STREAMLINE</h6>
+							<h6>STEP 5: DUMMY</h6>
 						</div>
-						<div style="float:right">
-							<h6>STREAMLINING THE DATA</h6>
-							<h6>CHOOSING THE MODEL</h6>
-							<h6>TUNING THE MODEL</h6>
-							<h6>TESTING THE MODEL</h6>
+						<div style="float:right,">
+							<h6>STEP 6: VISUALISE</h6>
+							<h6>STEP 7: PICK A MODEL</h6>
+							<h6>STEP 8: TUNE</h6>
+							<h6>STEP 9: TEST</h6>
+							<h6>STEP 10: REPEAT</h6>
 						</div>
 					</section>
 					<section>
@@ -81,30 +87,55 @@
 						<p>Thankfully we have all our data in accessible tables through Looker, so exporting the data wasn't a massive task...</p>
 						<p>Just downloading a CSV with 50,000 rows from Looker.</p>
 						<div class="coding">enrolments = pd.read_csv("data/courses snap_sales_funnel 2017-07-05T1254.csv", low_memory=False)</div>
+						<p>The variables we have on our data are wide-ranging but incomplete.</p>
+						<p>It wasn't hard to get a lot of information, but finding data that was consistently <em>there</em> for all the rows was a different story.</p>
+						<p>We ended up with some pretty nifty variables, including:
+							<ul>
+								<li>Metro - which city were they enrolled in?</li>
+								<li>Enrolment date - when were they enrolled?</li>
+								<li>Enrolment day - what day of the week did they enrol?</li>
+								<li>Course - which course did they enrol in?</li>
+								<li>Expected Payment - how did we expect them to pay?</li>
+								<li>Application Type - how did they apply?</li>
+								<li>Pardot Category - how did they find General Assembly?</li>
+								<li>Days between Enrolment and Invoice - how long between being enrolled and their payment due date?</li>
+								<li>Days between Enrolment and Start Date - how long between being enrolled and their course starting?</li>
+								<li>Days between Lead and Enrolment - how long before they were enrolled?</li>
+							</ul>
+						</p>
 					</section>
 					<section>
 						<h3>EXTRAPOLATING THE DATA</h3>
-						<p>I added a target column - "Cancelled" based on other columns, as well as an "APAC" column for regional explorations.</p>
+						<p>Some data I wanted wasn't in the data as it was exported. I needed to add these columns based on other variables.</p>
+						<p>I added our target column - "Cancelled" based on other columns, as well as an "APAC" column for regional explorations.</p>
 						<div class="coding">enrolments['Cancelled'] = enrolments.CanceledDate.notnull()<br>
 							enrolments['APAC'] = enrolments['Metro'].isin(['sydney','melbourne','hong-kong','singapore','brisbane'])</div>
 					</section>
 					<section>
 						<h3>COMPLETING THE DATA</h3>
-						<p>Most of the more recent data was fully complete, but some of the older rows had missing values.</p>
-						<p>I cleaned a lot of these by limiting the data to post mid-2014 and pre mid-2017.</p>
+						<p>As mentioned, most of the more recent data was fully complete, but some of the older rows had missing values.</p>
+						<p>Some of the columns I just deleted because they'd been filled in a long time ago, but not since then.</p>
+						<p>I cleared a lot of the missing data by limiting the data to post mid-2014 and pre mid-2017.</p>
 						<div class="coding">enrolments = enrolments[enrolments.EnrolDate > 20140630]<br>
 							enrolments = enrolments[enrolments.EnrolDate < 20170630]</div>
+						<p>Other null values were relatively easy to fix using the mean or simply entering "Unknown" for categorical variables, e.g. 'Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'.</p>
 					</section>
 					<section>
 						<h3>STREAMLINING THE DATA</h3>
-						<p>Some of the data categories - Pardot Category, Application Type and Expected Payment Method - had ad hoc entries as well as clear categories, so I limited these to categories with over 100 entries:</p>
-						<p>I cleaned a lot of these by limiting the data to post mid-2014 and pre mid-2017.</p>
+						<p>Some of the data categories - Pardot Category, Application Type and Expected Payment Method - had ad hoc entries as well as clear categories, so I limited these to only those categories with over 100 entries:</p>
 						<div class="coding">commonapptypes = enrolments.ApplicationType.value_counts().index[enrolments.ApplicationType.value_counts()>100]<br>
 							enrolments = enrolments[enrolments.ApplicationType.isin(commonapptypes)]</div>
+						<p>This got rid of entries with unusual entries without skewing the data</p>
+					</section>
+					<section>
+						<h3>DUMMYING THE DATA</h3>
+						<p>Some algorithms will only accept numerical or boolean inputs, so the categorical data had to be 'dummied up'. </p>
+						<p>This obviously created a lot more columns - I ended up with 103 columns and 39,524 rows.</p>
+						<div class="coding">dummydata = pd.get_dummies(data=enrolments, columns = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'], prefix = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'] )<br>dummydata.shape<br>>(39524, 103)</div>
 					</section>
 					<section>
 						<h3>VISUALISING THE DATA</h3>
-						<p>I did a bit of exploratory data and distilled some interesting insights into our enrolment data:</p>
+						<p>I then did a bit of exploratory data and distilled some interesting insights into our enrolment data:</p>
 					</section>
 					<section>
 						<h4>Cancellations by month</h4>
@@ -127,12 +158,21 @@
 						<img src="assets/img/daysenroltostart-hist.png"/>
 					</section>
 					<section>
-						<h3>DUMMYING THE DATA</h3>
-						<p>Some algorithms will only accept numerical or boolean inputs, so the categorical data had to be 'dummied up'. </p>
-						<p>This obviously created a lot more columns - I ended up with 103 columns and 39,524 rows.</p>
-						<div class="coding">dummydata = pd.get_dummies(data=enrolments, columns = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'], prefix = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'] )<br>dummydata.shape<br>>(39524, 103)</div>
+						<h3>CHOOSING THE MODEL</h3>
+						<p>XYZ</p>
 					</section>
-					
+					<section>
+						<h3>TUNING THE MODEL</h3>
+						<p>XYZ</p>
+					</section>
+					<section>
+						<h3>TESTING THE MODEL</h3>
+						<p>XYZ</p>
+					</section>
+					<section>
+						<h3>REPEAT</h3>
+						<p>XYZ</p>
+					</section>
 				</section>
 				<section>
 					<section>
