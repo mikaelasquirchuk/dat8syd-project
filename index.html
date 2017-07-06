@@ -39,9 +39,9 @@
 						<img src="assets/img/bar-chart.png"/>
 					</section>
 					<section>
-						<p>It's not hard to see this is a classification problem. Enrolments either cancel or they become students.</p>
-						<p>In the data, this is marked with a "CanceledDate" from which I needed to extrapolate a "Cancelled" column, with a Boolean response.</p>
-						<p>This 'Cancelled' column was the <em>target variable</em>.</p>
+						<p>> Classification problem: Enrolments either (1) cancel or (2) become students.</p>
+						<p>> In the data, this is marked with a "CanceledDate" from which I needed to extrapolate a "Cancelled" column, with a Boolean response.</p>
+						<p>> 'Cancelled' == <em>target variable</em>.</p>
 					</section>
 					<section>
 						<h2>END GOALS:</h2>
@@ -118,14 +118,19 @@
 						<p>I cleared a lot of the missing data by limiting the data to post mid-2014 and pre mid-2017.</p>
 						<div class="coding">enrolments = enrolments[enrolments.EnrolDate > 20140630]<br>
 							enrolments = enrolments[enrolments.EnrolDate < 20170630]</div>
-						<p>Other null values were relatively easy to fix using the mean or simply entering "Unknown" for categorical variables, e.g. 'Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'.</p>
+					</section>
+					<section>
+						<p>Other null values were relatively easy to fix using the mean or simply entering "Unknown" for categorical variables, e.g.  'Metro', 'Course', 'Type', 'ExpectedPayment', 'ApplicationType', 'PardotCategory', 'EnrolDay'.</p>
+						<div class="coding">enrolments.DaysEnroltoStart.fillna(enrolments.DaysEnroltoStart.mean(), inplace=True)<br>
+							enrolments.ExpectedPayment.fillna("Unknown", inplace=True)</div>
 					</section>
 					<section>
 						<h3>STREAMLINING THE DATA</h3>
-						<p>Some of the data categories - Pardot Category, Application Type and Expected Payment Method - had ad hoc entries as well as clear categories, so I limited these to only those categories with over 100 entries:</p>
+						<p>Some of the data categories - Pardot Category, Application Type and Expected Payment Method - had ad hoc entries as well as clear categories.</p>
+						<p> I limited these to only those categories with over 100 entries.</p>
+						<p>This got rid of entries with unusual entries without skewing the data.</p>
 						<div class="coding">commonapptypes = enrolments.ApplicationType.value_counts().index[enrolments.ApplicationType.value_counts()>100]<br>
 							enrolments = enrolments[enrolments.ApplicationType.isin(commonapptypes)]</div>
-						<p>This got rid of entries with unusual entries without skewing the data</p>
 					</section>
 					<section>
 						<h3>DUMMYING THE DATA</h3>
@@ -138,7 +143,7 @@
 						<p>I then did a bit of exploratory data and distilled some interesting insights into our enrolment data:</p>
 					</section>
 					<section>
-						<h4>Cancellations by month</h4>
+						<h5>Cancellations by month</h5>
 						<p>Although enrolment numbers are down, cancellations are steady:</p>
 						<img src="assets/img/cancellations-by-month.png"/>
 					</section>

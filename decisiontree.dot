@@ -1,16 +1,16 @@
 digraph Tree {
 node [shape=box] ;
-0 [label="DaysEnroltoStart <= 22.4786\ngini = 0.3126\nsamples = 29643\nvalue = [23895, 5748]"] ;
-1 [label="ExpectedPayment_Employer <= 0.5\ngini = 0.1978\nsamples = 15434\nvalue = [13716, 1718]"] ;
+0 [label="Metro_los-angeles <= 0.5\ngini = 0.1913\nsamples = 23658\nvalue = [21124, 2534]"] ;
+1 [label="ExpectedPayment_Employer <= 0.5\ngini = 0.1822\nsamples = 21596\nvalue = [19407, 2189]"] ;
 0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
-2 [label="gini = 0.2092\nsamples = 13791\nvalue = [12154, 1637]"] ;
+2 [label="gini = 0.1907\nsamples = 19375\nvalue = [17307, 2068]"] ;
 1 -> 2 ;
-3 [label="gini = 0.0937\nsamples = 1643\nvalue = [1562, 81]"] ;
+3 [label="gini = 0.103\nsamples = 2221\nvalue = [2100, 121]"] ;
 1 -> 3 ;
-4 [label="DaysEnroltoStart <= 22.9786\ngini = 0.4064\nsamples = 14209\nvalue = [10179, 4030]"] ;
+4 [label="Price <= 7050.0\ngini = 0.2786\nsamples = 2062\nvalue = [1717, 345]"] ;
 0 -> 4 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
-5 [label="gini = 0.0\nsamples = 2877\nvalue = [0, 2877]"] ;
+5 [label="gini = 0.3249\nsamples = 1362\nvalue = [1084, 278]"] ;
 4 -> 5 ;
-6 [label="gini = 0.1828\nsamples = 11332\nvalue = [10179, 1153]"] ;
+6 [label="gini = 0.1731\nsamples = 700\nvalue = [633, 67]"] ;
 4 -> 6 ;
 }
