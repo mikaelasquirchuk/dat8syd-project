@@ -34,14 +34,17 @@
 						<h1>THE PROBLEM</h1>
 					</section>
 					<section>
-						<p>Not all  enrolments start their course ...</p>
+						<p class="emphasis">Not all  enrolments start their course ...</p>
 						<p>Around 17.82% of all students cancel before their first day.</p>
 						<img src="assets/img/bar-chart.png"/>
 					</section>
 					<section>
-						<p>> Classification problem: Enrolments either (1) cancel or (2) become students.</p>
-						<p>> In the data, this is marked with a "CanceledDate" from which I needed to extrapolate a "Cancelled" column, with a Boolean response.</p>
-						<p>> 'Cancelled' == <em>target variable</em>.</p>
+						<div style="float:left; margin-top:25%">
+							<p>Clearly this is a classification problem:</p>
+							<p class="emphasis">Enrolments either (1) cancel or (2) become students.</p>
+							<p>'Cancelled' == <em>target variable</em>.</p>
+						</div>
+						<img id="flowchart" src="assets/img/flow.png"/>
 					</section>
 					<section>
 						<h2>END GOALS:</h2>
@@ -118,8 +121,6 @@
 						<p>I cleared a lot of the missing data by limiting the data to post mid-2014 and pre mid-2017.</p>
 						<div class="coding">enrolments = enrolments[enrolments.EnrolDate > 20140630]<br>
 							enrolments = enrolments[enrolments.EnrolDate < 20170630]</div>
-					</section>
-					<section>
 						<p>Other null values were relatively easy to fix using the mean or simply entering "Unknown" for categorical variables, e.g.  'Metro', 'Course', 'Type', 'ExpectedPayment', 'ApplicationType', 'PardotCategory', 'EnrolDay'.</p>
 						<div class="coding">enrolments.DaysEnroltoStart.fillna(enrolments.DaysEnroltoStart.mean(), inplace=True)<br>
 							enrolments.ExpectedPayment.fillna("Unknown", inplace=True)</div>
@@ -164,7 +165,9 @@
 					</section>
 					<section>
 						<h3>CHOOSING THE MODEL</h3>
-						<p>XYZ</p>
+						<p>There were a couple of elements in this dataset that helped choosing which model to use.</p>
+						<p>Firstly, the data was <em>unbalanced</em>. Cancelled students only accounted for 17% of the data, so it can skew results. It's important that we realise even a random pick from the data is going to select more non-cancelled students than cancelled.</p>
+						<p></p>
 					</section>
 					<section>
 						<h3>TUNING THE MODEL</h3>
