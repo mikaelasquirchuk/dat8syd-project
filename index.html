@@ -34,26 +34,27 @@
 						<h1>THE PROBLEM</h1>
 					</section>
 					<section>
-						<p class="emphasis">Not all  enrolments start their course ...</p>
-						<p>Around 17.82% of all students cancel before their first day.</p>
-						<img src="assets/img/bar-chart.png"/>
+							<h2>Business Understanding</h2>
+						<div style="float:left; width:50%">
+							<p class="emphasis">Some  GA enrolments never start their course.</p>
+							<p class="emphasis">Around 17.82% of all enrolments cancel before their first day.</p>
+							<p class="emphasis">This causes loss of income, difficulty in forecasting and wasted resourcing.</p>
+						</div>
+						<img src="assets/img/bar-chart.png" width="450px" style="float:right"/>
 					</section>
 					<section>
 						<div style="float:left; margin-top:25%">
-							<p>Clearly this is a classification problem:</p>
-							<p class="emphasis">Enrolments either (1) cancel or (2) become students.</p>
-							<p>'Cancelled' == <em>target variable</em>.</p>
+							<h5>Enrolments either (1) cancel or </h5>
+								<h5>(2) become students.</h5>
 						</div>
 						<img id="flowchart" src="assets/img/flow.png"/>
 					</section>
 					<section>
 						<h2>END GOALS:</h2>
 						<h4>1. Know them</h4>
-						<p>> To accurately predict whether a student will cancel from their course.</p>
-						<p>Knowing whether a student is likely to cancel can help identify how many students will end up starting a course, helping us predict income and spend outgoings more accurately.</p>
+						<div class="emphasis" style="margin-bottom:20px">Accurately predict whether a student will cancel from their course.</div>
 						<h4>2. Stop them</h4>
-						<p>>To explore any actionable insights in preventing cancellations.</p>
-						<p>Of course, ideally we could stop cancellations from happening and all students who are enrolled will start their course. Perhaps a more realistic objective is to work towards preventing these students from enrolling in the first place.</p>
+						<div class="emphasis" >Explore any actionable insights in preventing cancellations.</div>
 					</section>
 				</section>
 				<section>
@@ -61,7 +62,10 @@
 						<h1>THE SOLUTION</h1>
 					</section>
 					<section>
-						<h2>FINDINGS</h2>
+						<h2>1. KNOW THEM</h2>
+					</section>
+					<section>
+						<h2>2. STOP THEM</h2>
 					</section>
 				</section>
 				<section>
@@ -70,55 +74,70 @@
 					</section>
 					<section>
 						<h1>THE PROCESS</h1>
-						<div style="float:left">
+						<div>
 							<h6>STEP 1: EXPORT</h6>
-							<h6>STEP 2: EXTRAPOLATE</h6>
-							<h6>STEP 3: COMPLETE</h6>
-							<h6>STEP 4: STREAMLINE</h6>
-							<h6>STEP 5: DUMMY</h6>
+							<h6>STEP 2: DATA UNDERSTANDING</h6>
+							<h6>STEP 3: DATA PREPARATION</h6>
+							<h6>STEP 4: MODELING</h6>
+							<h6>STEP 5: EVALUATION</h6>
 						</div>
-						<div style="float:right,">
-							<h6>STEP 6: VISUALISE</h6>
-							<h6>STEP 7: PICK A MODEL</h6>
-							<h6>STEP 8: TUNE</h6>
-							<h6>STEP 9: TEST</h6>
-							<h6>STEP 10: REPEAT</h6>
+					</section>
+					<section>
+						<h1>THE PROCESS</h1>
+						<div >
+							<h6>STEP 6: REPEAT STEPS 3-5</h6>
+							<h6>STEP 7: AND AGAIN</h6>
+							<h6>STEP 8: AND AGAIN</h6>
+							<h6>STEP 9: AND AGAIN</h6>
+							<h6>STEP 10: DEPLOY</h6>
 						</div>
 					</section>
 					<section>
 						<h3>EXPORTING THE DATA</h3>
-						<p>Thankfully we have all our data in accessible tables through Looker, so exporting the data wasn't a massive task...</p>
-						<p>Just downloading a CSV with 50,000 rows from Looker.</p>
+						<p>Export the data from Looker and download it as a CSV, then read it into Python.</p>
 						<div class="coding">enrolments = pd.read_csv("data/courses snap_sales_funnel 2017-07-05T1254.csv", low_memory=False)</div>
-						<p>The variables we have on our data are wide-ranging but incomplete.</p>
-						<p>It wasn't hard to get a lot of information, but finding data that was consistently <em>there</em> for all the rows was a different story.</p>
-						<p>We ended up with some pretty nifty variables, including:
+						<div style="width:100%; text-align:left; padding-top:30px">
 							<ul>
 								<li>Metro - which city were they enrolled in?</li>
-								<li>Enrolment date - when were they enrolled?</li>
-								<li>Enrolment day - what day of the week did they enrol?</li>
-								<li>Course - which course did they enrol in?</li>
 								<li>Expected Payment - how did we expect them to pay?</li>
 								<li>Application Type - how did they apply?</li>
 								<li>Pardot Category - how did they find General Assembly?</li>
-								<li>Days between Enrolment and Invoice - how long between being enrolled and their payment due date?</li>
-								<li>Days between Enrolment and Start Date - how long between being enrolled and their course starting?</li>
-								<li>Days between Lead and Enrolment - how long before they were enrolled?</li>
 							</ul>
-						</p>
+						</div>
 					</section>
 					<section>
+						<h2>DATA UNDERSTANDING</h2>
 						<h3>EXTRAPOLATING THE DATA</h3>
-						<p>Some data I wanted wasn't in the data as it was exported. I needed to add these columns based on other variables.</p>
-						<p>I added our target column - "Cancelled" based on other columns, as well as an "APAC" column for regional explorations.</p>
 						<div class="coding">enrolments['Cancelled'] = enrolments.CanceledDate.notnull()<br>
 							enrolments['APAC'] = enrolments['Metro'].isin(['sydney','melbourne','hong-kong','singapore','brisbane'])</div>
 					</section>
+					<section data-background-image="assets/img/matrixdata.gif">
+						<h3>VISUALISING THE DATA</h3>
+					</section>
 					<section>
+						<h5>Cancellations by month</h5>
+						<!--<p>Although enrolment numbers are down, cancellations are steady:</p>-->
+						<img src="assets/img/cancellations-by-month.png"/>
+					</section>
+					<section>
+						<h4>Cancellations by metro</h4>
+						<!--<p>Sydney actually has a lower rate of cancellations than other metros:</p>-->
+						<img src="assets/img/cancellations-by-metro.png"/>
+					</section>
+					<section>
+						<h4>Payment methods</h4>
+						<!--<p>Students who are paying by private loan or on their own pocket are more likely to cancel than employer-paid:</p>-->
+						<img src="assets/img/cancellations-by-pay-method.png"/>
+					</section>
+					<section>
+						<h4>Days from Enrolment to Startdate</h4>
+						<!--<p>Students enrol close to the start date of their course: </p>-->
+						<img src="assets/img/daysenroltostart-hist.png"/>
+					</section>
+					<section>
+						<h2>DATA PREPARATION</h2>
 						<h3>COMPLETING THE DATA</h3>
-						<p>As mentioned, most of the more recent data was fully complete, but some of the older rows had missing values.</p>
-						<p>Some of the columns I just deleted because they'd been filled in a long time ago, but not since then.</p>
-						<p>I cleared a lot of the missing data by limiting the data to post mid-2014 and pre mid-2017.</p>
+						<p>A lot of the missing data was cleared just by limiting the data to post mid-2014 and pre mid-2017.</p>
 						<div class="coding">enrolments = enrolments[enrolments.EnrolDate > 20140630]<br>
 							enrolments = enrolments[enrolments.EnrolDate < 20170630]</div>
 						<p>Other null values were relatively easy to fix using the mean or simply entering "Unknown" for categorical variables, e.g.  'Metro', 'Course', 'Type', 'ExpectedPayment', 'ApplicationType', 'PardotCategory', 'EnrolDay'.</p>
@@ -128,57 +147,271 @@
 					<section>
 						<h3>STREAMLINING THE DATA</h3>
 						<p>Some of the data categories - Pardot Category, Application Type and Expected Payment Method - had ad hoc entries as well as clear categories.</p>
-						<p> I limited these to only those categories with over 100 entries.</p>
-						<p>This got rid of entries with unusual entries without skewing the data.</p>
-						<div class="coding">commonapptypes = enrolments.ApplicationType.value_counts().index[enrolments.ApplicationType.value_counts()>100]<br>
+						<div class="coding">commonapptypes = enrolments.ApplicationType.value_counts().index[enrolments.ApplicationType. value_counts()>100]<br>
 							enrolments = enrolments[enrolments.ApplicationType.isin(commonapptypes)]</div>
 					</section>
 					<section>
 						<h3>DUMMYING THE DATA</h3>
 						<p>Some algorithms will only accept numerical or boolean inputs, so the categorical data had to be 'dummied up'. </p>
-						<p>This obviously created a lot more columns - I ended up with 103 columns and 39,524 rows.</p>
-						<div class="coding">dummydata = pd.get_dummies(data=enrolments, columns = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'], prefix = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'] )<br>dummydata.shape<br>>(39524, 103)</div>
+						<div class="coding">dummydata = pd.get_dummies(data=enrolments, columns = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'], prefix = ['Metro','Course','Type','ExpectedPayment','ApplicationType','PardotCategory','EnrolDay'] )<br>dummydata.shape</div>
+						<div class="output">
+							30293, 100
+						</div>
 					</section>
 					<section>
-						<h3>VISUALISING THE DATA</h3>
-						<p>I then did a bit of exploratory data and distilled some interesting insights into our enrolment data:</p>
-					</section>
-					<section>
-						<h5>Cancellations by month</h5>
-						<p>Although enrolment numbers are down, cancellations are steady:</p>
-						<img src="assets/img/cancellations-by-month.png"/>
-					</section>
-					<section>
-						<h4>Cancellations by metro</h4>
-						<p>Sydney actually has a lower rate of cancellations than other metros:</p>
-						<img src="assets/img/cancellations-by-metro.png"/>
-					</section>
-					<section>
-						<h4>Payment methods</h4>
-						<p>Students who are paying by private loan or on their own pocket are more likely to cancel than employer-paid:</p>
-						<img src="assets/img/cancellations-by-pay-method.png"/>
-					</section>
-					<section>
-						<h4>Days from Enrolment to Startdate</h4>
-						<p>Students enrol close to the start date of their course: </p>
-						<img src="assets/img/daysenroltostart-hist.png"/>
-					</section>
-					<section>
+						<h2>MODELING</h2>
 						<h3>CHOOSING THE MODEL</h3>
-						<p>There were a couple of elements in this dataset that helped choosing which model to use.</p>
-						<p>Firstly, the data was <em>unbalanced</em>. Cancelled students only accounted for 17% of the data, so it can skew results. It's important that we realise even a random pick from the data is going to select more non-cancelled students than cancelled.</p>
-						<p></p>
+						<p><em>Classification problem</em>: Students either cancel or don't cancel.</p>
+						<p><em>Unbalanced data</em>: Cancelled students only accounted for 17% of the data; even a random pick will predict a non-cancelled student correctly 83% of the time.</p>
+					</section>
+					<section>
+						<h2>EVALUATION</h2>
+						<p> Method needs to be: uniform across models and based how we want to use the model.</p>
+						<p>Predicting a cancellation is like a very trivial medical diagnosis - we care more about true negatives than false positives (though they're still important).</p>
+						<p>Comparing models using: Confusion Matrix, Specificity, Sensitivity, AUC ROC. </p>
+						<p>Baseline (the random picker):</p>
+						<div class="coding">
+							from sklearn.dummy import DummyClassifier<br>
+							dumb = DummyClassifier(strategy='most_frequent')<br>
+							dumb.fit(X_train, y_train)<br>
+							y_dumb_class = dumb.predict(X_test)<br>
+						</div>
+					</section>
+					<section>
+						<h5>Baseline</h5>
+						<div class="coding">
+							from sklearn.dummy import DummyClassifier<br>
+							dumb = DummyClassifier(strategy='most_frequent')<br>
+							dumb.fit(X_train, y_train)<br>
+							y_dumb_class = dumb.predict(X_test)<br>
+							print ('Accuracy Score: ', metrics.accuracy_score(y_test, y_dumb_class))<br>
+							confusion_matrix = metrics.confusion_matrix(y_test, y_dumb_class)<br>
+							print('Confusion Matrix: ', confusion_matrix)<br>
+							print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
+							print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
+						</div>
+						<div class="output">
+							Accuracy Score: 0.890151515152<br>
+							Confusion Matrix: <br>
+							[[6815    0]<br>
+						 	[ 841    0]]<br>
+							Sensitivity: 1.0<br>
+							Specificity: 0.0
+						</div>
+					</section>
+					<section>
+						<div class="coding" style="float:left; width:50% !important">
+							import matplotlib.pyplot as plt<br>
+							preds = dumb.predict_proba(X_test)[:,1]<br>
+							fpr, tpr, _ = metrics.roc_curve(y_test, preds)<br>
+							roc_auc = metrics.auc(fpr,tpr)<br>
+							plt.figure()<br>
+							lw = 2<br>
+							plt.plot(fpr, tpr, color='red',lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)<br>
+							plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')<br>
+							plt.xlim([0.0, 1.0])<br>
+							plt.ylim([0.0, 1.05])<br>
+							plt.xlabel('False Positive Rate')<br>
+							plt.ylabel('True Positive Rate')<br>
+							plt.title('Receiver operating characteristic example')<br>
+							plt.legend(loc="lower right")<br>
+							plt.show()<br>
+						</div>
+						<div class="output" style="float:right !important, width:49%">
+							<img src="assets/img/baseline-rocauc.png" style="float:right; width:40%"/>
+						</div>
+					</section>
+					<section>
+						<h5>Decision Tree</h5>
+						<div class="coding">
+							from sklearn import tree<br>
+							ctree = tree.DecisionTreeClassifier(random_state=1, max_depth=100)<br>
+							ctree.fit(X_train, y_train)<br>
+							y_pred_class = ctree.predict(X_test)<br>
+							print('Accuracy Score:', metrics.accuracy_score(y_test, y_pred_class))<br>
+							confusion_matrix = metrics.confusion_matrix(y_test, y_pred_class)<br>
+							print('Confusion Matrix:', confusion_matrix)<br>
+							print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
+							print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))<br>
+						</div>
+						<div class="output">
+							Accuracy Score: 0.8039446186<br>
+							Confusion Matrix: <br>
+							[[6030  785]<br>
+							 [ 716  125]]<br>
+							Sensitivity: 0.884812912693<br>
+							Specificity: 0.148632580262<br>
+						</div>
+					</section>
+					<section>
+						<div class="coding" style="clear:both; width:100% !important">
+							preds = ctree.predict_proba(X_test)[:,1]<br>
+							...<br>
+							plt.show()<br>
+						</div>
+						<div class="output" style="text-align:center">
+							<img src="assets/img/decision-tree-rocauc.png" style=" width:80%"/>
+						</div>
+					</section>
+					<section>
+						<h5>Logistic Regression</h5>
+						<div class="coding">
+							from sklearn.linear_model import <br>LogisticRegression<br>
+							logreg = LogisticRegression()<br>
+							logreg.fit(X_train, y_train)<br>
+							zip(all_ftcolumns, logreg.coef_[0])<br>
+							print(logreg.fit(X_train, y_train))<br>
+							y_pred_class = logreg.predict(X_test)<br>
+							print('Accuracy Score:', metrics.accuracy_score(y_test,y_pred_class))<br>
+							confusion_matrix = metrics.confusion_matrix(y_test, y_pred_class)<br>
+							print('Confusion Matrix:', confusion_matrix)<br>
+							print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
+							print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
+						</div>
+						<div class="output">
+							LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True, intercept_scaling=1, max_iter=100, multi_class='ovr', n_jobs=1, penalty='l2', random_state=None, solver='liblinear', tol=0.0001, verbose=0, warm_start=False)<br><br>
+							Accuracy Score: 0.890151515152<br>
+							Confusion Matrix: [[6815    0]<br>
+							 [ 841    0]]<br>
+							Sensitivity: 1.0<br>
+							Specificity: 0.0<br>
+						</div>
+					</section>
+					<section>
+						<div class="coding" style="clear:both; width:100% !important">
+							preds = dumb.predict_proba(X_test)[:,1]<br>
+							...<br>
+							plt.show()<br>
+						</div>
+						<div class="output" style="text-align:center">
+							<img src="assets/img/logreg-rocauc.png" style=" width:80%"/>
+						</div>
+					</section>
+					<section>
+						<h5>KNN Classifier</h5>
+						<div class="coding">
+							from sklearn.neighbors import KNeighborsClassifier<br>
+							KNN_model = KNeighborsClassifier(5)<br>
+							KNN_model.fit(X_train, y_train)<br>
+							y_pred_class = KNN_model.predict(X_test)<br>
+							print('Accuracy Score:', metrics.accuracy_score(y_test,y_pred_class))<br>
+							confusion_matrix = metrics.confusion_matrix(y_test, y_pred_class)<br>
+							print('Confusion Matrix:', confusion_matrix)<br>
+							print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
+							print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))<br>
+						</div>
+						<div class="output">
+							Accuracy Score: 0.879440961338<br>
+							Confusion Matrix: <br>
+							[[6719   96]<br>
+							 [ 827   14]]<br>
+							Sensitivity: 0.985913426266<br>
+							Specificity: 0.0166468489893<br>
+						</div>
+					</section>
+					<section>
+						<div class="coding" style="clear:both; width:100% !important">
+							preds = KNN_model.predict_proba(X_test)[:,1]<br>
+							...<br>
+							plt.show()<br>
+						</div>
+						<div class="output" style="text-align:center">
+							<img src="assets/img/knnclass-rocauc.png" style=" width:80%"/>
+						</div>
+					</section>
+					<section>
+						<h5>Random Forest</h5>
+						<div class="coding">
+							from sklearn.ensemble import RandomForestClassifier<br>
+							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1,class_weight='balanced')<br>
+							rfclf.fit(dummydata[all_ftcolumns], dummydata.Cancelled)<br>
+							rfclf.oob_score_<br>
+							y_pred_class = rfclf.predict(X_test)<br>
+							confusion_matrix = metrics.confusion_matrix(y_test, y_pred_class)
+							print(confusion_matrix)<br>
+							print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
+							print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))<br>
+						</div>
+						<div class="output">
+							Accuracy Score: 1.0<br>
+							Confusion Matrix: <br>
+							[[6815    0]<br>
+							 [   0  841]]<br>
+							Sensitivity: 1.0<br>
+							Specificity: 1.0<br>
+						</div>
+					</section>
+					<section>
+						<h6>Uh oh!</h6>
+						<div class="coding" style="clear:both; width:100% !important">
+							preds = rfclf.predict_proba(X_test)[:,1]<br>
+							...<br>
+							plt.show()<br>
+						</div>
+						<div class="output" style="text-align:center">
+							<img src="assets/img/randomforest1-rocauc.png" style=" width:80%"/>
+						</div>
 					</section>
 					<section>
 						<h3>TUNING THE MODEL</h3>
-						<p>XYZ</p>
+						<div class="output" style="text-align:center;float:left; width:65%">
+							<img src="assets/img/randomforest1-features-list.png" style="width:70%"/>
+						</div>
+						<div class="coding" style="float:right; width:30% !important; margin-top:10%">
+							feature_importance = pd.DataFrame({'feature':all_ftcolumns, 'importance':rfclf.feature_importances_})<br>
+							feature_importance.sort('importance',ascending=False)<br>
+						</div>
+						
 					</section>
 					<section>
-						<h3>TESTING THE MODEL</h3>
-						<p>XYZ</p>
+						<h3>TUNING THE MODEL</h3>
+						<div class="output" style="text-align:center;float:left; width:65%">
+							<img src="assets/img/randomforest1-features-list.png" style="width:70%"/>
+						</div>
+						<div class="coding" style="float:right; width:30% !important; margin-top:10%">
+							feature_importance = pd.DataFrame({'feature':all_ftcolumns, 'importance':rfclf.feature_importances_})<br>
+							feature_importance.sort('importance',ascending=False)<br>
+						</div>
+						
 					</section>
 					<section>
-						<h3>REPEAT</h3>
+						<p>Removing some of the data that could be screwing with the model:</p>
+						<div class="coding">
+							all_ftcolumns.remove('EnrolDate')<br>
+							all_ftcolumns.remove('DaysLeadtoEnroled')<br>
+							all_ftcolumns.remove('DaysEnroltoStart')<br>
+							all_ftcolumns.remove('DaysInvoicetoEnrol')<br>
+							all_ftcolumns.remove('EnrolWeek')<br>
+							all_ftcolumns.remove('EnrolHour')<br>
+							all_ftcolumns.remove('Startdate')<br>
+							all_ftcolumns.remove('Enddate')<br>
+							all_ftcolumns.remove('Month')<br>
+							all_ftcolumns.remove('APAC')<br>
+							from sklearn.ensemble import RandomForestClassifier<br>
+							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1,class_weight='balanced')<br>
+							rfclf.fit(dummydata[all_ftcolumns], dummydata.Cancelled)<br>
+						</div>
+						<div class="output">
+							Accuracy Score: 0.942267502612<br>
+							Confusion Matrix: <br>
+							[[6412  403]<br>
+							 [  39  802]]<br>
+							Sensitivity: 0.940865737344<br>
+							Specificity: 0.953626634958<br>
+						</div>
+					</section>
+					<section>
+						<div class="coding" style="clear:both; width:100% !important">
+							preds = rfclf.predict_proba(X_test)[:,1]<br>
+							...<br>
+							plt.show()<br>
+						</div>
+						<div class="output" style="text-align:center">
+							<img src="assets/img/randomforest2-rocauc.png" style=" width:80%"/>
+						</div>
+					</section>
+					<section>
+						<h3>DEPLOYING THE MODEL</h3>
 						<p>XYZ</p>
 					</section>
 				</section>
