@@ -18,19 +18,20 @@
 
 
 .coding {
-  font-size:15px !important;
+  font-size:13px !important;
   background-color:white;
   color:#222;
   padding:10px !important;
   font-family:monospace !important;
   text-align: left;
   word-wrap:break-word;
+  margin-bottom:10px !important;
 }
 
 .output {
-  font-size:15px !important;
+  font-size:13px !important;
   color:white;
-  padding:10px !important;
+  padding:0px 10px 10px 10px !important;
   font-family:monospace !important;
   text-align: left;
   word-wrap:break-word;
@@ -48,6 +49,11 @@ p, ul {
 #flowchart {
   width:300px;
   float:right;
+}
+
+.output>img {
+  margin:0px !important;
+  padding-top:0px!important;
 }
 
 /*********************************************
