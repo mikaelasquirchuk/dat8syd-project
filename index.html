@@ -146,7 +146,7 @@
 					<section>
 						<h2>EVALUATION</h2>
 						<p> Method needs to be: uniform and based how we want to use the model.</p>
-						<p> Cancellation is like medical diagnosis - we care more about predicting true negatives than false positives. </p>
+						<p> Cancellation is like medical diagnosis - we care more about false negatives (i.e. predicted not cancelled and then they cancel); we don't care that much about false positives (i.e. predicted cancelled and then they don't cancel).  </p>
 						<p> Comparing models using: Confusion Matrix, Specificity, Sensitivity, AUC ROC. </p>
 						<div class="coding">
 							from sklearn.dummy import DummyClassifier<br>
