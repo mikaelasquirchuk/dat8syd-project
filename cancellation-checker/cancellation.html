@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Cancellations</title>
+		<!-- Reveal CSS -->
+		<link rel="stylesheet" href="css/reveal.css">
+		<!-- Theme used from Reveal JS-->
+		<link rel="stylesheet" href="css/theme/black.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<!--Font import-->
+		<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>Cancellation Risk checker</h4>
+					<form method="post" action="testcancellation.cgi">
+						<!--Startdate-->
+							<div class="formobject">
+								<label>Start date: </label>
+								<div class="forminput">
+									<input type="text" name="startdate" placeholder="YYYYMMDD" value="20170714">
+								</div>
+							</div>
+						<!--Enddate-->
+							<div class="formobject"> 
+								<label>End date: </label>
+								<div class="forminput">
+									<input type="text" name="enddate" placeholder="YYYYMMDD" value="20170714">
+								</div>
+							</div>
+						<!--Phoneisvalid-->
+							<div class="formobject">
+								<label>Is the phone number valid?</label>
+								<div class="formradios">
+									<input type="radio" name="phonevalid" value="yes">Yes
+									<input type="radio" name="phonevalid" value="no" checked="checked">No
+								</div>
+							</div>
+						<!--Price-->
+							<div class="formobject">
+								<label>How much will they be charged?</label>
+								<div class="forminput">
+									<input type="text" name="price" placeholder="10000" value="10000">
+								</div>
+							</div>
+						<!--EnrolDate-->
+							<div class="formobject">
+								<label>On what date were they enrolled?</label>
+								<div class="forminput">
+									<input type="text" name="enroldate" placeholder="YYYYMMDD"value="20170701">
+								</div>
+							</div>
+						<!--Metro-->
+							<div class="formobject">
+								<label>Into which metro were they enrolled?</label>
+								<div class="formradios">
+									<div class="line">
+										<div class="radio"><input type="radio" name="metro" value="Metro_atlanta">Atlanta</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_austin">Austin</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_boston">Boston</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_brisbane">Brisbane</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_chicago">Chicago</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="metro" value="Metro_denver">Denver</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_hong-kong">Hong Kong</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_london">London</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_los-angeles">Los Angeles</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_melbourne">Melbourne</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="metro" value="Metro_new-york-city">New York City</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_online">Online</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_san-francisco">San Francisco</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_seattle">Seattle</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_singapore">Singapore</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="metro" value="Metro_sydney" checked="checked">Sydney</div>
+										<div class="radio"><input type="radio" name="metro" value="Metro_washington-dc">Washington DC</div>
+									</div>
+								</div>
+							</div>
+						<!--Course-->
+							<div class="formobject">
+								<label>Into which course were they enrolled?</label>
+								<div class="formradios">
+									<div class="line">
+										<div class="radio"><input type="radio" name="course" value="Course_android-development-immersive">ADI</div>
+										<div class="radio"><input type="radio" name="course" value="Course_back-end-web-development">BEWD</div>
+										<div class="radio"><input type="radio" name="course" value="Course_business-fundamentals-tactics">BFT</div>
+										<div class="radio"><input type="radio" name="course" value="Course_data-analytics">ANA</div>
+										<div class="radio"><input type="radio" name="course" value="Course_data-science">DAT</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="course" value="Course_data-science-immersive">DSi</div>
+										<div class="radio"><input type="radio" name="course" value="Course_digital-marketing">DGM</div>
+										<div class="radio"><input type="radio" name="course" value="Course_front-end-web-development">FEWD</div>
+										<div class="radio"><input type="radio" name="course" value="Course_ios-development">IOS</div>
+										<div class="radio"><input type="radio" name="course" value="Course_javascript-development">JSD</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="course" value="Course_product-management">PDM</div>
+										<div class="radio"><input type="radio" name="course" value="Course_product-management-immersive">PMI</div>
+										<div class="radio"><input type="radio" name="course" value="Course_user-experience-design" checked="checked">UXD</div>
+										<div class="radio"><input type="radio" name="course" value="Course_user-experience-design-immersive">UXDi</div>
+										<div class="radio"><input type="radio" name="course" value="Course_visual-design">VIS</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="course" value="Course_web-development-immersive">WDi</div>
+										<div class="radio"><input type="radio" name="course" value="Course_web-development-immersive-remote">WDiR</div>
+									</div>
+								</div>
+							</div>
+						<!--Type-->
+							<div class="formobject">
+								<label>Into which program type were they enrolled?</label>
+								<div class="formradios">
+									<div class="line">
+										<div class="radio"><input type="radio" name="type" value="Type_course" checked="checked">Course</div>
+										<div class="radio"><input type="radio" name="type" value="Type_immersive">Immersive</div>
+										<div class="radio"><input type="radio" name="type" value="Type_remote">Remote</div>
+									</div>
+								</div>
+							</div>
+						<!--Expectedpaymentmethod-->
+							<div class="formobject">
+								<label>What was their expected payment method?</label>
+								<div class="formradios">
+									<div class="line">
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Employer">Employer</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Family">Family</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_GA Employee/Instructor">GA Employee/Instructor</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Government Funding / Grant">Goverment Funding/Grant</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Loan (Private)">Loan (Private)</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Loan Partner">Loan Partner</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Other">Other</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Scholarship">Scholarship</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Student / Self">Student/Self</div>
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Unknown" checked="checked">Unknown</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="ExpectedPaymentMethod" value="ExpectedPayment_Veterans Affairs">Veterans Affairs</div>
+									</div>
+								</div>
+							</div>
+						<!--ApplicationType-->
+							<div class="formobject">
+								<label>What was their application type?</label>
+								<div class="formradios">
+									<div class="line">
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_apply now" checked="checked">Apply Now</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_contact_admissions">Contact Admissions</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_cwe_feedback">CWE Feedback</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_financing contact us">Financing Contact Us</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_get notified">Get Notified</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_info session">Info Session</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_invoice">Invoice</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_lander">Lander</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_open house">Open House</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_referral">Referral</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_request info">Request Info</div>
+										<div class="radio"><input type="radio" name="ApplicationType" value="ApplicationType_trial class">Trial Class</div>
+									</div>
+								</div>
+							</div>
+						<!--Type-->
+							<div class="formobject">
+								<label>What pardot category are they?</label>
+								<div class="formradios">
+									<div class="line">
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_CWE Purchase">CWE Purchase</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Content Partnership">Content Partnership</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Facebook Acquisition">Facebook Acquisition</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_GA Circuits Leads">GA Circuits Leads</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_GA Course Leads">GA Course Leads</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_GA Dash">GA Dash</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_GA Front Row Signup">GA Front Row Signup</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Livestream Purchase">Livestream Purchase</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Other">Other</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Partner Event">Partner Event</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Student Enrollment">Student Enrollment</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Sweepstake">Sweepstake</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Twitter Acquisition">Twitter Acquisition</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Twitter Promoted">Twitter Promoted</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Uncategorized">Uncategorized</div>
+									</div>
+									<div class="line">
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Unknown" checked="checked">Unknown</div>
+										<div class="radio"><input type="radio" name="PardotCategory" value="PardotCategory_Website">Website</div>
+									</div>
+								</div>
+							</div>
+							<div class="formobject">
+								<input id="submit" type="submit">
+							</div>
+					</form>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
+
