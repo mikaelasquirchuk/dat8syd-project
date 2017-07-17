@@ -171,12 +171,15 @@
 								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
 							</div>
 							<div class="output" style="float:right; width:45%">
-								Accuracy Score: 0.890151515152<br>
-								Confusion Matrix: <br>
-								[[6815    0]<br>
-							 	[ 841    0]]<br>
-								Sensitivity: 1.0<br>
-								Specificity: 0.0
+								<div style="float:left; width:50%">
+									Accuracy Score: 0.890151515152<br>
+									Confusion Matrix: <br>
+									[[6815    0]<br>
+								 	[ 841    0]]<br>
+									Sensitivity: 1.0<br>
+									Specificity: 0.0
+								</div>
+								<img src="assets/img/baselineconfusionmatrix.png" style="float:right; width:50%"/>
 							</div>
 						</div>
 						<div style="clear:both;width:100%">
@@ -223,12 +226,15 @@
 								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))<br>
 							</div>
 							<div class="output" style="float:right; width:45%">
-								Accuracy Score: 0.890151515152<br>
-								Confusion Matrix: <br>
-								[[6815    0]<br>
-								 [ 841    0]]<br>
-								Sensitivity: 1.0<br>
-								Specificity: 0.0
+								<div style="float:left; width:50%">
+									Accuracy Score: 0.890151515152<br>
+									Confusion Matrix: <br>
+									[[6815    0]<br>
+									 [ 841    0]]<br>
+									Sensitivity: 1.0<br>
+									Specificity: 0.0
+								</div>
+								<img src="assets/img/baselineconfusionmatrix.png" style="float:right; width:50%"/>
 							</div>
 							<div class="coding" style="float:left; width:50%">
 								preds = ctree.predict_proba(X_test)[:,1]<br>
@@ -263,11 +269,14 @@
 								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
 							</div>
 							<div class="output" style="float:right; width:45%">
-								Accuracy Score: 0.890151515152<br>
-								Confusion Matrix: [[6815    0]<br>
-								 [ 841    0]]<br>
-								Sensitivity: 1.0<br>
-								Specificity: 0.0
+								<div style="float:left; width:50%">
+									Accuracy Score: 0.890151515152<br>
+									Confusion Matrix: [[6815    0]<br>
+									 [ 841    0]]<br>
+									Sensitivity: 1.0<br>
+									Specificity: 0.0
+								</div>
+								<img src="assets/img/logregconfusinomatrix.png" style="float:right; width:50%"/>
 							</div>
 							<div class="coding" style="float:left; width:50%">
 								preds = dumb.predict_proba(X_test)[:,1]<br>
@@ -296,12 +305,15 @@
 								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))<br>
 							</div>
 							<div class="output" style="float:right; width:40%">
-								Accuracy Score: 0.879440961338<br>
-								Confusion Matrix: <br>
-								[[6719   96]<br>
-								 [ 827   14]]<br>
-								Sensitivity: 0.985913426266<br>
-								Specificity: 0.0166468489893
+								<div style="float:left; width:50%">
+									Accuracy Score: 0.879440961338<br>
+									Confusion Matrix: <br>
+									[[6719   96]<br>
+									 [ 827   14]]<br>
+									Sensitivity: 0.985913426266<br>
+									Specificity: 0.0166468489893
+								</div>
+								<img src="assets/img/knnconfusionmatrix.png" style="float:right; width:50%"/>
 							</div>
 							<div class="coding" style="float:left; width:50%">
 								preds = KNN_model.predict_proba(X_test)[:,1]<br>
@@ -333,12 +345,15 @@
 								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
 							</div>
 							<div class="output" style="float:right; width:40%">
-								Accuracy Score: 1.0<br>
-								Confusion Matrix: <br>
-								[[6815    0]<br>
-								 [   0  841]]<br>
-								Sensitivity: 1.0<br>
-								Specificity: 1.0<br>
+								<div style="float:left; width:50%">
+									Accuracy Score: 1.0<br>
+									Confusion Matrix: <br>
+									[[6815    0]<br>
+									 [   0  841]]<br>
+									Sensitivity: 1.0<br>
+									Specificity: 1.0<br>
+								</div>
+								<img src="assets/img/randomforest1confusionmatrix.png" style="float:right; width:50%"/>
 							</div>
 						</div>
 						<div style="clear:both;width:100%">
@@ -378,12 +393,15 @@
 							rfclf.fit(dummydata[all_ftcolumns], dummydata.Cancelled)<br>
 						</div>
 						<div class="output"style="float:right; width:45%">
-							Accuracy Score: 0.942267502612<br>
-							Confusion Matrix: <br>
-							[[6412  403]<br>
-							 [  39  802]]<br>
-							Sensitivity: 0.940865737344<br>
-							Specificity: 0.953626634958<br>
+							<div style="float:left; width:40%">
+								Accuracy Score: 0.942267502612<br>
+								Confusion Matrix: <br>
+								[[6412  403]<br>
+								 [  39  802]]<br>
+								Sensitivity: 0.940865737344<br>
+								Specificity: 0.953626634958
+							</div>
+							<img src="assets/img/randomforest2confusionmatrix.png" style="float:right; width:50%"/>
 						</div>
 					</section>
 					<section>
