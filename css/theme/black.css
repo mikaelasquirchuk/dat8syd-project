@@ -15,8 +15,47 @@
   float:left;
   margin:50px 10px 10px 10px;
 }
-
-
+form {
+  width:100%;
+}
+.formobject {
+  font-size: 12px !important;
+  text-align: left;
+  margin-bottom:3px!important;
+  overflow: auto;
+  clear:both;
+  border:1px solid white !important;
+  padding:3px!important;
+}
+.formobject>label{
+  float:left;
+  width:25%;
+}
+.forminput{
+  width:75%;
+  float:left;
+  text-align: left !important;
+}
+.forminput>input,.form-radios>input {
+  width:100%;
+}
+.formradios {
+  float:left;
+  width:75%;
+  text-align: left !important;
+}
+div.line {
+  width:100%;
+  clear:both;
+  font-size:10px;
+}
+div.radio {
+  width:20%;
+  float:left;
+}
+#submit {
+  float:right;
+}
 .coding {
   font-size:13px !important;
   background-color:white;
