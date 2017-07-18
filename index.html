@@ -148,12 +148,6 @@
 						<p> Method needs to be: uniform and based how we want to use the model.</p>
 						<p> Cancellation is like medical diagnosis - we care more about false negatives (i.e. predicted not cancelled and then they cancel); we don't care that much about false positives (i.e. predicted cancelled and then they don't cancel).  </p>
 						<p> Comparing models using: Confusion Matrix, Specificity, Sensitivity, AUC ROC. </p>
-						<div class="coding">
-							from sklearn.dummy import DummyClassifier<br>
-							dumb = DummyClassifier(strategy='most_frequent')<br>
-							dumb.fit(X_train, y_train)<br>
-							y_dumb_class = dumb.predict(X_test)<br>
-						</div>
 					</section>
 					<section>
 						<h5>Baseline</h5>
@@ -246,8 +240,6 @@
 							</div>
 						</div>
 					</section>
-
-
 					<section>
 						<h5>Logistic Regression</h5>
 						<div class="coding" style="clear:both;width:100%;margin-bottom:0px!important">
@@ -288,8 +280,6 @@
 							</div>
 						</div>
 					</section>
-
-
 					<section>
 						<h5>KNN Classifier</h5>
 						<div class="coding" style="clear:both; width:100%">
@@ -368,6 +358,48 @@
 						</div>
 					</section>
 					<section>
+						<h5>Random Forest (Correct)</h5>
+						<div class="coding" style="clear:both;width:100%">
+							from sklearn.ensemble import RandomForestClassifier<br>
+							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1,class_weight='balanced')<br>
+							rfclf.fit(X_train,y_train)<br>
+							rfclf.oob_score_<br>
+						</div>
+						<div class="output" style="clear:both;width:100%;margin-top:10px">
+							0.89406078550901336
+						</div>
+						<div style="clear:both;width:100%">
+							<div class="coding" style="float:left; width:55%">
+								y_pred_class = rfclf.predict(X_test)<br>
+								print('Accuracy Score:', metrics.accuracy_score(y_test,y_pred_class))<br>
+								print('Confusion Matrix:',metrics.confusion_matrix(y_test, y_pred_class))<br>
+								print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
+								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
+							</div>
+							<div class="output" style="float:right; width:40%">
+								<div style="float:left; width:50%">
+									Accuracy Score: 0.889629049112<br>
+									Confusion Matrix: <br>
+									[[6809    6]<br>
+ 									 [ 839    2]]<br>
+									Sensitivity: 0.999119589142<br>
+									Specificity: 0.00237812128419
+								</div>
+								<img src="assets/img/randomforest2confusionmatrix.png" style="float:right; width:50%"/>
+							</div>
+						</div>
+						<div style="clear:both;width:100%">
+							<div class="output" style="text-align:center; float:right; width:45%">
+								<img src="assets/img/randomforest2-rocauc.png" style=" width:80%"/>
+							</div>
+							<div class="coding" style="float:left; width:50%">
+								preds = rfclf.predict_proba(X_test)[:,1]<br>
+								...<br>
+								plt.show()
+							</div>
+						</div>
+					</section>
+					<section>
 						<h3>TUNING THE MODEL</h3>
 						<p>Removing some of the data that could be screwing with the model:</p>
 						<div class="coding" style="float:left; width:50% !important; margin-top:10px">
@@ -375,33 +407,16 @@
 							feature_importance.sort('importance',ascending=False)<br>
 						</div>
 						<div class="output" style="float:right; width:45%">
-							<img src="assets/img/randomforest1-features-list.png" style="width:70%"/>
+							XYZ
 						</div>
 						<div class="coding" style="float:left; width:50%">
-							all_ftcolumns.remove('EnrolDate')<br>
-							all_ftcolumns.remove('DaysLeadtoEnroled')<br>
-							all_ftcolumns.remove('DaysEnroltoStart')<br>
-							all_ftcolumns.remove('DaysInvoicetoEnrol')<br>
-							all_ftcolumns.remove('EnrolWeek')<br>
-							all_ftcolumns.remove('EnrolHour')<br>
-							all_ftcolumns.remove('Startdate')<br>
-							all_ftcolumns.remove('Enddate')<br>
-							all_ftcolumns.remove('Month')<br>
-							all_ftcolumns.remove('APAC')<br>
-							from sklearn.ensemble import RandomForestClassifier<br>
-							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1,class_weight='balanced')<br>
-							rfclf.fit(dummydata[all_ftcolumns], dummydata.Cancelled)<br>
+							XYZ
 						</div>
 						<div class="output"style="float:right; width:45%">
 							<div style="float:left; width:40%">
-								Accuracy Score: 0.942267502612<br>
-								Confusion Matrix: <br>
-								[[6412  403]<br>
-								 [  39  802]]<br>
-								Sensitivity: 0.940865737344<br>
-								Specificity: 0.953626634958
+								XYZ
 							</div>
-							<img src="assets/img/randomforest2confusionmatrix.png" style="float:right; width:50%"/>
+							XYZ
 						</div>
 					</section>
 					<section>
@@ -434,7 +449,7 @@
 						<h1>NEXT STEPS</h1>
 					</section>
 					<section>
-						<h2>Vertical Slide 1</h2>
+						<h2>DEPLOYMENT</h2>
 					</section>
 				</section>
 				<section  data-background-color="black">
@@ -459,4 +474,3 @@
 		</script>
 	</body>
 </html>
-
