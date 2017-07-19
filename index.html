@@ -328,9 +328,9 @@
 						</div>
 						<div style="clear:both;width:100%">
 							<div class="coding" style="float:left; width:55%">
-								y_pred_class = rfclf.predict(X_test)<br>
-								print('Accuracy Score:', metrics.accuracy_score(y_test,y_pred_class))<br>
-								print('Confusion Matrix:',metrics.confusion_matrix(y_test, y_pred_class))<br>
+								y_pred_class = rfclf.predict(X)<br>
+								print('Accuracy Score:', metrics.accuracy_score(y,y_pred_class))<br>
+								print('Confusion Matrix:',metrics.confusion_matrix(y, y_pred_class))<br>
 								print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
 								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
 							</div>
@@ -358,7 +358,7 @@
 						</div>
 					</section>
 					<section>
-						<h5>Random Forest (Correct)</h5>
+						<h5>Random Forest with Train/Test Split (not overfit)</h5>
 						<div class="coding" style="clear:both;width:100%">
 							from sklearn.ensemble import RandomForestClassifier<br>
 							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1,class_weight='balanced')<br>
