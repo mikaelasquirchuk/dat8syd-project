@@ -357,6 +357,9 @@
 							</div>
 						</div>
 					</section>
+					<section data-background-image="assets/img/noooo.gif">
+						<h1>It's overfit...</h1>
+					</section>
 					<section>
 						<h5>Random Forest with Train/Test Split (not overfit)</h5>
 						<div class="coding" style="clear:both;width:100%">
@@ -401,7 +404,6 @@
 					</section>
 					<section>
 						<h3>TUNING THE MODEL</h3>
-						<p>Removing some of the data that could be screwing with the model:</p>
 						<div class="coding" style="float:left; width:50% !important; margin-top:10px">
 							feature_importance = pd.DataFrame({'feature':all_ftcolumns, 'importance':rfclf.feature_importances_})<br>
 							feature_importance.sort('importance',ascending=False)<br>
@@ -439,14 +441,13 @@
 							<img src="assets/img/randomforest2-features-list.png" style="width:70%"/>
 						</div>
 					</section>
-					<section>
-						<h3>DEPLOYING THE MODEL</h3>
-						<p>???</p>
-					</section>
 				</section>
 				<section>
 					<section data-background-image="assets/img/whatnext.gif">
 						<h1>NEXT STEPS</h1>
+					</section>
+					<section>
+						<h2>MAKE IT BETTER</h2>
 					</section>
 					<section>
 						<h2>DEPLOYMENT</h2>
