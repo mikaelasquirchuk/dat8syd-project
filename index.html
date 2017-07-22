@@ -58,7 +58,45 @@
 						<h2>1. KNOW THEM</h2>
 					</section>
 					<section>
+						<h3>1. KNOW THEM</h3>
+						<h5>Random Forest with balanced data</h5>
+						<div class="coding" style="float:left;width:50%">
+							rfclf.oob_score_
+						</div>
+						<div class="output" style="margin-top:10px; width:45%;float:right">
+							0.58318061494603946
+						</div>
+						<div style="clear:both;width:100%">
+							<div class="output" style="float:left; width:50%">
+									Accuracy Score: 0.579108124618<br>
+									Confusion Matrix: <br>
+									[[364 462]<br>
+									 [227 584]]<br>
+									Sensitivity: 0.440677966102<br>
+									Specificity: 0.72009864365
+								</div>
+								<div class="output" style="float:right; width:45%">
+								<img src="assets/img/randomforest3confusionmatrix.png" style="float:left; width:60%"/>
+								</div>
+						</div>
+						<div style="clear:both;width:100%">
+							<div class="coding" style="float:left; width:50%">
+								preds = rfclf.predict_proba(X_test)[:,1]<br>
+								...<br>
+								plt.show()
+							</div>
+							<div class="output" style="text-align:center; float:right; width:45%">
+								<img src="assets/img/randomforest3-rocauc.png" style="width:80%;float:left"/>
+							</div>
+						</div>
+					</section>
+					<section>
 						<h2>2. STOP THEM</h2>
+					</section>
+					<section>
+						<h2>2. STOP THEM</h2>
+						<h5>Key insights</h5>
+						<p>To be continued.</p>
 					</section>
 				</section>
 				<section>
@@ -321,7 +359,7 @@
 							from sklearn.ensemble import RandomForestClassifier<br>
 							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1,class_weight='balanced')<br>
 							rfclf.fit(dummydata[all_ftcolumns], dummydata.Cancelled)<br>
-							rfclf.oob_score_<br>
+							rfclf.oob_score_
 						</div>
 						<div class="output" style="clear:both;width:100%;margin-top:10px">
 							0.89305074782835869
@@ -366,7 +404,7 @@
 							from sklearn.ensemble import RandomForestClassifier<br>
 							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1,class_weight='balanced')<br>
 							rfclf.fit(X_train,y_train)<br>
-							rfclf.oob_score_<br>
+							rfclf.oob_score_
 						</div>
 						<div class="output" style="clear:both;width:100%;margin-top:10px">
 							0.89406078550901336
@@ -403,22 +441,80 @@
 						</div>
 					</section>
 					<section>
-						<h3>TUNING THE MODEL</h3>
-						<div class="coding" style="float:left; width:50% !important; margin-top:10px">
-							feature_importance = pd.DataFrame({'feature':all_ftcolumns, 'importance':rfclf.feature_importances_})<br>
-							feature_importance.sort('importance',ascending=False)<br>
+						<h3>BALANCING THE DATA</h3>
+						<h3>WITH A LITTLE HELP FROM GEOFF</h3>
+						<div class="coding" style="float:left; width:50% !important">
+							enrolments.Cancelled.value_counts()
 						</div>
 						<div class="output" style="float:right; width:45%">
-							XYZ
+							False    27348<br>
+							True      3274
 						</div>
-						<div class="coding" style="float:left; width:50%">
-							XYZ
+						<div class="coding" style="float:left; width:100% !important">
+							sample_size = sum(dummydata.Cancelled == 1)<br>
+							NoCancelled_indices = dummydata[dummydata.Cancelled == 0].index<br>
+							Cancelled_indices = dummydata[dummydata.Cancelled == 1].index<br>
+							sample_indices = np.random.choice(NoCancelled_indices, sample_size, replace = False)<br>
+							SampleandCancelled_indices = pd.Index(sample_indices).union(Cancelled_indices) <br>
+							Cancelled_Sample= dummydata.loc[sample_indices]<br>
+							Cancelled_Remainder = dummydata.loc[~dummydata.index.isin(SampleandCancelled_indices)]<br>
+							frames = [dummydata[dummydata.Cancelled == 1],Cancelled_Sample]<br>
+							balanced = pd.concat(frames)
 						</div>
-						<div class="output"style="float:right; width:45%">
-							<div style="float:left; width:40%">
-								XYZ
+						<div class="coding" style="float:left; width:50% !important">
+							balanced.Cancelled.value_counts()
+						</div>
+						<div class="output" style="float:right; width:45%">
+							True     3274<br>
+							False    3274
+						</div>
+						<div class="coding" style="clear:both; width:100% !important">
+							X = balanced[all_ftcolumns]<br>
+							y = balanced.Cancelled
+						</div>
+					</section>
+					<section>
+						<h5>Random Forest with balanced data</h5>
+						<div class="coding" style="clear:both;width:100%">
+							from sklearn.cross_validation import train_test_split<br>
+							X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)<br>
+							from sklearn.ensemble import RandomForestClassifier<br>
+							rfclf = RandomForestClassifier(n_estimators=400, max_features=2, oob_score=True, random_state=1, class_weight='balanced', max_depth=3)<br>
+							rfclf.fit(X_train,y_train)<br>
+							rfclf.oob_score_
+						</div>
+						<div class="output" style="clear:both;width:100%;margin-top:10px">
+							0.58318061494603946
+						</div>
+						<div style="clear:both;width:100%">
+							<div class="coding" style="float:left; width:55%">
+								y_pred_class = rfclf.predict(X_test)<br>
+								print('Accuracy Score:', metrics.accuracy_score(y_test,y_pred_class))<br>
+								print('Confusion Matrix:',metrics.confusion_matrix(y_test, y_pred_class))<br>
+								print('Sensitivity:',(confusion_matrix[0,0]/(confusion_matrix[0,1]+ confusion_matrix[0,0])))<br>
+								print('Specificity:',(confusion_matrix[1,1]/(confusion_matrix[1,1]+ confusion_matrix[1,0])))
 							</div>
-							XYZ
+							<div class="output" style="float:right; width:40%">
+								<div style="float:left; width:50%">
+									Accuracy Score: 0.579108124618<br>
+									Confusion Matrix: <br>
+									[[364 462]<br>
+									 [227 584]]<br>
+									Sensitivity: 0.440677966102<br>
+									Specificity: 0.72009864365
+								</div>
+								<img src="assets/img/randomforest3confusionmatrix.png" style="float:right; width:50%"/>
+							</div>
+						</div>
+						<div style="clear:both;width:100%">
+							<div class="output" style="text-align:center; float:right; width:45%">
+								<img src="assets/img/randomforest3-rocauc.png" style=" width:80%"/>
+							</div>
+							<div class="coding" style="float:left; width:50%">
+								preds = rfclf.predict_proba(X_test)[:,1]<br>
+								...<br>
+								plt.show()
+							</div>
 						</div>
 					</section>
 					<section>
@@ -428,7 +524,7 @@
 							plt.show()<br>
 						</div>
 						<div class="output" style="text-align:center">
-							<img src="assets/img/randomforest2-rocauc.png" style=" width:80%"/>
+							<img src="assets/img/randomforest3-rocauc.png" style=" width:80%"/>
 						</div>
 					</section>
 					<section>
@@ -438,7 +534,7 @@
 							feature_importance.sort('importance',ascending=False)<br>
 						</div>
 						<div class="output" style="text-align:center;float:right; width:65%">
-							<img src="assets/img/randomforest2-features-list.png" style="width:70%"/>
+							<img src="assets/img/randomforest3-features-list.png" style="width:70%"/>
 						</div>
 					</section>
 				</section>
@@ -458,11 +554,8 @@
 				</section>
 			</div>
 		</div>
-
 		<script src="lib/js/head.min.js"></script>
-
 		<script src="js/reveal.js"></script>
-
 		<script>
 			Reveal.initialize({
 				dependencies: [
